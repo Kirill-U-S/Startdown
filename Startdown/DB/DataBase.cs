@@ -13,6 +13,11 @@ namespace Startdown.DB
         {
             if(conn.State == System.Data.ConnectionState.Open)
                 conn.Close();
+
+        }
+        int prom()
+        {
+            return 0;
         }
     }
 }
