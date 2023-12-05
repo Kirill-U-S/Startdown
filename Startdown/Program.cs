@@ -5,7 +5,6 @@ namespace Startdown
     public class Program
     {
         DataBase db = new DataBase();
-        // Я русский
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
