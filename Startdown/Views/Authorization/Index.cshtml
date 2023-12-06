@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Авторизация";
+
+}
+<body>
+    <form method="post">
+        <fieldset>
+            <legend><b>Авторизация</b></legend>
+            <p>
+                <label for="Login">Логин:</label>
+                <input type="text" name="Login" value="@Request.Form["Login"]" />
+            </p>
+            <p>
+                <label for="Password">Пароль:</label>
+                <input type="text" name="Password" value="" />
+            </p>
+            <p>
+                <input type="submit" name="Password" value="Авторизоваться" />
+            </p>
+        </fieldset>
+    </form>
+</body>
