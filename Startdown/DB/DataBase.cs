@@ -4,6 +4,9 @@ namespace Startdown.DB
 {
     public class DataBase
     {
+
+
+
         SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-UIR8C5V;Initial Catalog=StartDown_DB;Integrated Security=True");
         public DataBase()
         {
@@ -13,8 +16,8 @@ namespace Startdown.DB
         {
             if(conn.State == System.Data.ConnectionState.Open)
                 conn.Close();
-
         }
+
         int prom()
         {
             return 0;
