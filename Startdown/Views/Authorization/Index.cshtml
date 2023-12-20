@@ -1,24 +1,29 @@
 ﻿@{
-    ViewData["Title"] = "Авторизация";
+    ViewData["Title"] = "Authorization";
 
 }
 <body>
     <form method="post">
-        <fieldset>
-            <legend><b>Авторизация</b></legend>
-            <p>
-                <label for="Login">Логин:</label>
-                <input type="text" name="Login" value="" />
+        <main >
+            <div style="position:relative; top:20%;left:40%">
+             <legend><b>Введите логин и пароль</b></legend>
+             <p>
+                    <label for="Login">Логин:  </label>
+             </p>
+             <p>
+                    <input type="text" name="Login" value="" />
                
-            </p>
-            <p>
-                <label for="Password">Пароль:</label>
-                <input type="text" name="Password" value="" />
-            </p>
-            <p>
-                <button class="button">Авторизоваться</button>
-            </p>
-            <button class="button">Купить</button>
-        </fieldset>
+             </p>
+             <p>
+                    <label for="Password">Пароль:</label>
+             </p>
+             <p>
+                    <input type="text" name="Password" value="" />
+             </p>
+
+                <button class="button" onclick="location.href='https://localhost:7281/MainPage'" type="button">Войти</button>
+            </div>
+           
+        </main>
     </form>
 </body>

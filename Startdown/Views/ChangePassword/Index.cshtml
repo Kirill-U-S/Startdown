@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "ChangePassword";
+
+}
+<body>
+    <form method="post">
+        <main>
+            <div style="position:relative; top:20%;left:40%">
+                <legend><b>Смена пароля</b></legend>
+                <p>
+                    <label for="Password">Старый пароль:</label>
+                </p>
+                <p>
+                    <input type="text" name="Password" value="" />
+                </p>
+                <p>
+                    <label for="Password">Новый пароль:</label>
+                </p>
+                <p>
+                    <input type="text" name="Password" value="" />
+                </p>
+
+                <button class="button" onclick="location.href='https://localhost:7281/MainPage'" type="button">Сохранить</button>
+            </div>
+
+        </main>
+    </form>
+</body>
