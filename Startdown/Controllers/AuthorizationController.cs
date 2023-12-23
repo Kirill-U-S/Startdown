@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Startdown.Models;
 using System.Data.SqlClient;
 
 namespace Startdown.Controllers
 {
     public class AuthorizationController : Controller
     {
-        public IActionResult Index() //при переходе по /Autorization
+        public IActionResult Index() //при переходе по /Authorization
         {
             return View();
         }
@@ -17,14 +18,24 @@ namespace Startdown.Controllers
             using (SqlConnection conn = new SqlConnection(connstr))
             {
                 conn.Open();
-
-                string query = $"INSERT INTO [dbo].[User] (Login, Password, ID_Order) VALUES ('{Login}', '{Password}', 1)";
+                string query = "select COUNT(*) from [dbo].[User]" +
+                    $"where [dbo].[User].[Login] = '{Login}' and [dbo].[User].[Password] = '{Password}'";
+                
                 SqlCommand command = new SqlCommand(query, conn);
+                int count = (int)command.ExecuteScalar();
 
-                command.ExecuteNonQuery();
-                conn.Close();
+                if (count > 0)
+                {
+                    conn.Close();
+                    return RedirectToAction("Index", "MainPage");
+                }
+                else
+                {
+                    TempData["Message"] = "Логин или пароль не найдены";
+                    conn.Close();
+                    return RedirectToAction("Index", "Authorization");
+                }
             }
-            return RedirectToAction();
         }
     }
 }

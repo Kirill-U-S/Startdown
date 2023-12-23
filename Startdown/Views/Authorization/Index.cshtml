@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.Message = TempData["Message"];
     ViewData["Title"] = "Authorization";
 
 }
@@ -22,7 +23,11 @@
              </p>
 
                 <!--<button class="button" onclick="location.href='https://localhost:7281/MainPage'" type="button">Войти</button>-->
-                <button type="submit">Войти</button>
+                <button class="button" type="submit">Войти</button>
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <div class="alert alert-danger">@ViewBag.Message</div>
+                }
             </div>
            
         </main>

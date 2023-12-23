@@ -1,9 +1,10 @@
 ﻿@{
+    ViewBag.Message = TempData["Message"];
     ViewData["Title"] = "Registration";
 
 }
 <body>
-<form method="post">
+    <form asp-controller="Registration" asp-action="RegPage" method="post">
     <main>
         <div style="position:relative; top:20%;left:40%">
             <legend><b>Придумайте логин и пароль</b></legend>
@@ -18,10 +19,15 @@
                 <label for="Password">Пароль:</label>
             </p>
             <p>
-                <input type="text" name="Password" value="" />
+                <input type="password" name="Password" value="" />
             </p>
 
-            <button class="button" onclick="location.href='https://localhost:7281/MainPage'" type="button">Зарегистрироваться</button>
+            <!--<button class="button" onclick="location.href='https://localhost:7281/MainPage'" type="button">Зарегистрироваться</button>-->
+            <button class="button" type="submit">Зарегистрироваться</button>
+            @if (!string.IsNullOrEmpty(ViewBag.Message))
+            {
+                <div class="alert alert-danger">@ViewBag.Message</div>
+            }
         </div>
 
     </main>

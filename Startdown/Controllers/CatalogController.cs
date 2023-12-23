@@ -1,14 +1,37 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Startdown.DB;
+using System.Data.SqlClient;
 
 namespace Startdown.Controllers
 {
     public class CatalogController : Controller
     {
-        // GET: CatalogController
+        // GET: CatalogController]
+        List<Book> books = new List<Book>();
         public ActionResult Index()
         {
-            return View();
+            string connstr = "Data Source=DESKTOP-UIR8C5V;Initial Catalog=StartDown_DB;Integrated Security=True";
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();
+                books = new List<Book>();
+                string query = "select [dbo].[Books].[Id], [dbo].[Books].[Title], [dbo].[Books].[Author] from [dbo].[Books]";
+                SqlCommand command = new SqlCommand(query, conn);
+
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+                    string title = reader.GetString(1);
+                    string author = reader.GetString(2);
+
+                    Book book = new Book(id, title, author);
+                    books = books.Append(book).ToList();
+                }
+                conn.Close();
+            }
+            return View(books);
         }
 
         // GET: CatalogController/Details/5
