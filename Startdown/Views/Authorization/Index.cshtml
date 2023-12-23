@@ -3,7 +3,7 @@
 
 }
 <body>
-    <form method="post">
+    <form asp-controller="Authorization" asp-action="AuthPage" method="post">
         <main >
             <div style="position:relative; top:20%;left:40%">
              <legend><b>Введите логин и пароль</b></legend>
@@ -18,10 +18,11 @@
                     <label for="Password">Пароль:</label>
              </p>
              <p>
-                    <input type="text" name="Password" value="" />
+                    <input type="password" name="Password" value="" />
              </p>
 
-                <button class="button" onclick="location.href='https://localhost:7281/MainPage'" type="button">Войти</button>
+                <!--<button class="button" onclick="location.href='https://localhost:7281/MainPage'" type="button">Войти</button>-->
+                <button type="submit">Войти</button>
             </div>
            
         </main>
