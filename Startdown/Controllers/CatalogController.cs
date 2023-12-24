@@ -11,7 +11,7 @@ namespace Startdown.Controllers
         List<Book> books = new List<Book>();
         public ActionResult Index()
         {
-            string connstr = "Data Source=DESKTOP-UIR8C5V;Initial Catalog=StartDown_DB;Integrated Security=True";
+            string connstr = "Data Source=BEST-KOMP;Initial Catalog=SD_DB;Integrated Security=True";
             using (SqlConnection conn = new SqlConnection(connstr))
             {
                 conn.Open();

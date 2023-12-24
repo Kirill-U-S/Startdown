@@ -6,8 +6,8 @@
 <body>
     <form asp-controller="Registration" asp-action="RegPage" method="post">
     <main>
-        <div style="position:relative; top:20%;left:40%">
-            <legend><b>Придумайте логин и пароль</b></legend>
+            <legend style="position:absolute; top:10%;left:40%"><b>Придумайте логин и пароль</b></legend>
+        <div style="position:absolute; top:15%;left:45%; width:40%;height:70%px">
             <p>
                 <label for="Login">Логин:  </label>
             </p>
@@ -26,7 +26,7 @@
             <button class="button" type="submit">Зарегистрироваться</button>
             @if (!string.IsNullOrEmpty(ViewBag.Message))
             {
-                <div class="alert alert-danger">@ViewBag.Message</div>
+                <div class="alert alert-danger" style="width:37%;height:5%;position:relative; top:20px">@ViewBag.Message</div>
             }
         </div>
 

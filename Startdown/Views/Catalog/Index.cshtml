@@ -2,15 +2,19 @@
     ViewData["Title"] = "Catalog";
 }
 
-<div class="text-center">
+
+
+<div  style="position:absolute; top:10%; left:45%">
     <b style ="font-size:40px">Каталог</b>
-    
-        <div style="position:absolute; bottom:12%; left:44.5%">
-        <h2>Список книг</h2>
         @foreach (var book in Model)
         {
-            <p>@book.Title - @book.Author</p>
+
+        <p class="bkpage" style="position:relative;left:-30%">
+            <b style="font-size:20px; position:absolute;left:5%">@book.Title</b>
+            <b style ="font-size:15px; position:absolute;left:5%;top:40%">@book.Author</b>
+            <button style="font-size:15px; position:absolute;right:10%;top:40%" class="button2" type="submit">В корзину</button>
+            </p>
+            
         }
-        <button class="button" onclick="location.href='https://localhost:7281/Basket'" type="button">Корзина</button>
-        </div>   
+    
 </div>

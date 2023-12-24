@@ -23,6 +23,22 @@ body {
 }
 
 
+header {
+        width: 100%;
+        position: fixed;
+        z-index: 10;
+}
+
+footer {
+    width: 100%;
+    height:5%;
+    position: fixed;
+    bottom:0%;
+
+}
+
+
+
 .button {
     width:175px;
     height:45px;
@@ -54,4 +70,28 @@ body {
     transition-duration: 0.4s;
     cursor: pointer;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.button2 {
+    width: 150px;
+    height: 45px;
+    background-color: rgba(255,255,255,1);
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.bkpage
+{
+    width:400px;
+    height:100px;
+    background-color:darkblue;
+    color:white; 
 }

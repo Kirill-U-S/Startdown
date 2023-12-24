@@ -6,8 +6,8 @@
 <body>
     <form asp-controller="Authorization" asp-action="AuthPage" method="post">
         <main >
-            <div style="position:relative; top:20%;left:40%">
-             <legend><b>Введите логин и пароль</b></legend>
+            <legend style="position:absolute; top:10%;left:40%"><b>Введите логин и пароль</b></legend>
+            <div style="position:absolute; top:15%;left:43%">
              <p>
                     <label for="Login">Логин:  </label>
              </p>
@@ -26,7 +26,7 @@
                 <button class="button" type="submit">Войти</button>
                 @if (!string.IsNullOrEmpty(ViewBag.Message))
                 {
-                    <div class="alert alert-danger">@ViewBag.Message</div>
+                    <div class="alert alert-danger"  style=" width:20%;height:5%;position:relative; top:20px; left:-2%">@ViewBag.Message</div>
                 }
             </div>
            
