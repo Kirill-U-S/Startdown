@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Asn1.X509;
+using System.Data.SqlClient;
 
 namespace Startdown.Controllers
 {
@@ -9,6 +11,40 @@ namespace Startdown.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        public IActionResult DeleteAcc()
+        {
+            if (HttpContext.Session.GetString("id") == null)
+            {
+                TempData["Message"] = $"Авторизуйтесь или зарегистрируйтесь";
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                //считали id пользователя
+                int id = 0;
+                id = int.Parse(HttpContext.Session.GetString("id"));
+
+                string query1 = "DELETE FROM [dbo].[Order]" +
+                    $"WHERE[dbo].[Order].[ID_User] = {id}";
+                string query2 = "DELETE FROM [dbo].[User]" +
+                    $"WHERE[dbo].[User].[ID] = {id}";
+                //открываем соединение
+                string connstr = "Data Source=DESKTOP-UIR8C5V;Initial Catalog=StartDown_DB;Integrated Security=True";
+                using (SqlConnection conn = new SqlConnection(connstr))
+                {
+                    conn.Open();
+                    //выполняем 1 запрос
+                    SqlCommand cmd = new SqlCommand(query1, conn);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                    //выполняем 2 запрос
+                    SqlCommand cmd1 = new SqlCommand(query2, conn);
+                    cmd1.ExecuteNonQuery();
+                    conn.Close();
+                }
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // GET: DeleteAccountController/Details/5

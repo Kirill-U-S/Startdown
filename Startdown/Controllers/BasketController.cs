@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Asn1.X509;
 using Startdown.DB;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net;
 
 namespace Startdown.Controllers
 {
@@ -72,7 +74,63 @@ namespace Startdown.Controllers
             PrintBooks();
             return View(booksbasket);
         }
+        bool reg()
+        {
+            if (HttpContext.Session.GetString("id") == null)
+            {
+                TempData["Message"] = $"Авторизуйтесь или зарегистрируйтесь";
+                RedirectToAction("Index", "Home");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public IActionResult B_Buy(int bookId)
+        {
+            reg();
+            //считали id пользователя
+            int id = 0;
+            id = int.Parse(HttpContext.Session.GetString("id"));
+            //Пишем запрос
+            string query = "UPDATE [dbo].[Order]" +
+                "SET  [dbo].[Order].[Status] = 'Оформление'" +
+                $"WHERE [dbo].[Order].[ID] = {bookId} and [dbo].[Order].[ID_User] = {id}";
 
+            //открываем соединение
+            string connstr = "Data Source=DESKTOP-UIR8C5V;Initial Catalog=StartDown_DB;Integrated Security=True";
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(query, conn);
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+            return RedirectToAction("Index", "Basket");
+        }
+        public IActionResult B_Del(int bookId)
+        {
+            reg();
+            //считали id пользователя
+            int id = 0;
+            id = int.Parse(HttpContext.Session.GetString("id"));
+            //Пишем запрос
+            string query = "  delete from [dbo].[Order]" +
+                $"WHERE[dbo].[Order].[ID_User] = {id}" +
+                $"and[dbo].[Order].[ID_Book] = {bookId}";
+
+            //открываем соединение
+            string connstr = "Data Source=DESKTOP-UIR8C5V;Initial Catalog=StartDown_DB;Integrated Security=True";
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(query, conn);
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+            return RedirectToAction("Index", "Basket");
+        }
         // GET: BasketController/Details/5
         public ActionResult Details(int id)
         {

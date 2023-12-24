@@ -45,22 +45,41 @@ namespace Startdown.Controllers
             }
             else
             {
+
                 //считали id пользователя
                 int id = 0;
                 id = int.Parse(HttpContext.Session.GetString("id"));
-                //начинаем чудо
-                //настраиваем связь
+                //решаем проверить а нет ли уже книги в заказах
+                int count = 0;
                 string connstr = "Data Source=DESKTOP-UIR8C5V;Initial Catalog=StartDown_DB;Integrated Security=True";
                 using (SqlConnection conn = new SqlConnection(connstr))
                 {
                     conn.Open();
-                    ////пишем мегазапрос
-                    string query = "INSERT INTO [dbo].[Order] (ID_User, Data, ID_Book, Status) " +
-                                   $"VALUES ('{id}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{bookId}', 'в корзине')";
-                    //и жесточайшим образом производим его тотальное повсеместное неотвратимое исполнение
+                    string query = "select COUNT(*) from [dbo].[Order]" +
+                        $"where [dbo].[Order].[ID_User] = {id} and [dbo].[Order].[ID_Book] = {bookId}";
+
                     SqlCommand command = new SqlCommand(query, conn);
-                    command.ExecuteNonQuery();
+                    count = (int)command.ExecuteScalar();
                     conn.Close();
+                }
+                if (count < 1)
+                {
+                    //начинаем чудо
+                    //настраиваем связь
+                    using (SqlConnection conn = new SqlConnection(connstr))
+                    {
+                        conn.Open();
+                        //пишем мегазапрос
+                        string query = "INSERT INTO [dbo].[Order] ([ID_User], [Data], [Status], [ID_Book]) " +
+                                       "VALUES (@id, @date, 'в корзине', @bookId)";
+                        //и жесточайшим образом производим его тотальное повсеместное неотвратимое исполнение
+                        SqlCommand command = new SqlCommand(query, conn);
+                        command.Parameters.AddWithValue("@id", id);
+                        command.Parameters.AddWithValue("@date", DateTime.Now);
+                        command.Parameters.AddWithValue("@bookId", bookId);
+                        command.ExecuteNonQuery();
+                        conn.Close();
+                    }
                 }
             }
             return RedirectToAction("Index");

@@ -4,13 +4,24 @@
 
 <div class="text-center">
     <b style="font-size:40px">Оформление заказа</b>
+    @foreach (var book in Model)
+    {
+        <p class="bkpage" style="position:relative;left:-30%">
+            <b style="font-size:20px; position:absolute;left:5%">@book.Title</b>
+            <b style="font-size:15px; position:absolute;left:5%;top:40%">@book.Author</b>
+            <b style="font-size:30px; position:absolute;left:5%;top:20%">@book.Price</b>
 
+            <form asp-controller="Basket" asp-action="B_Buy" method="post">
+                <button style="font-size:15px; position:absolute;right:10%;top:40%" class="button2" type="submit" name="bookId" value="@book.Id">Купить</button>
+            </form>
+        </p>
+    }
     <div style="position:absolute; bottom:12%; left:44.5%">
         <p>
             <b style="font-size:20px; position:relative; bottom:12%; left:-30%">Цена:</b>
         </p>
         <p>
-            <button class="button" onclick="location.href='https://localhost:7281/Basket'" type="button">Оформить</button>
+            <button class="button" onclick="location.href='https://localhost:7281/Basket'" type="button">Купить все</button>
         </p>
     </div>
 </div>

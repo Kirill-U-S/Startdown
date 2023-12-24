@@ -7,6 +7,7 @@
         public string Author { get; set; }
         public string Data { get; set; }
         public string Status { get; set; }
+        public int Price { get; set; }
         /// <summary>
         /// данный конструктор для создания листов и т.д. т.е. технический
         /// </summary>
@@ -54,6 +55,24 @@
             Author = author;
             Data = data;
             Status = status;
+        }
+        /// <summary>
+        /// специально для оформления
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="title"></param>
+        /// <param name="author"></param>
+        /// <param name="data"></param>
+        /// <param name="status"></param>
+        /// <param name="price"></param>
+        public Book(int id, string title, string author, string data, string status,int price)
+        {
+            Id = id;
+            Title = title;
+            Author = author;
+            Data = data;
+            Status = status;
+            Price = price;
         }
     }
 }
