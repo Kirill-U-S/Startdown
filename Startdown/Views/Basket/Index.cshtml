@@ -4,6 +4,16 @@
 
 <div style="position:absolute; top:10%;left:45%">
     <b style="font-size:40px">Корзина</b>
+    @foreach (var book in Model)
+    {
+
+        <p class="bkpage" style="position:relative;left:-30%">
+            <b style="font-size:20px; position:absolute;left:5%">@book.Title</b>
+            <b style="font-size:15px; position:absolute;left:5%;top:40%">@book.Author</b>
+            <button style="font-size:15px; position:absolute;right:10%;top:40%" class="button2" type="submit">В корзину</button>
+        </p>
+
+    }
 
     <div style="position:fixed; bottom:0%; left:39%">
         <button class="button" onclick="location.href='https://localhost:7281/BuyPage'" type="button">Купить все</button>

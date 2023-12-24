@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Startdown.DB;
+using Startdown.Models;
 using System.Data.SqlClient;
 
 namespace Startdown.Controllers
@@ -11,7 +12,7 @@ namespace Startdown.Controllers
         List<Book> books = new List<Book>();
         public ActionResult Index()
         {
-            string connstr = "Data Source=BEST-KOMP;Initial Catalog=SD_DB;Integrated Security=True";
+            string connstr = "Data Source=DESKTOP-UIR8C5V;Initial Catalog=StartDown_DB;Integrated Security=True";
             using (SqlConnection conn = new SqlConnection(connstr))
             {
                 conn.Open();
@@ -34,6 +35,36 @@ namespace Startdown.Controllers
             return View(books);
         }
 
+
+        public IActionResult ButClick(int bookId)
+        {
+            if (HttpContext.Session.GetString("id") == null)
+            {
+                TempData["Message"] = $"Авторизуйтесь или зарегистрируйтесь";
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                //считали id пользователя
+                int id = 0;
+                id = int.Parse(HttpContext.Session.GetString("id"));
+                //начинаем чудо
+                //настраиваем связь
+                string connstr = "Data Source=DESKTOP-UIR8C5V;Initial Catalog=StartDown_DB;Integrated Security=True";
+                using (SqlConnection conn = new SqlConnection(connstr))
+                {
+                    conn.Open();
+                    ////пишем мегазапрос
+                    string query = "INSERT INTO [dbo].[Order] (ID_User, Data, ID_Book, Status) " +
+                                   $"VALUES ('{id}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{bookId}', 'в корзине')";
+                    //и жесточайшим образом производим его тотальное повсеместное неотвратимое исполнение
+                    SqlCommand command = new SqlCommand(query, conn);
+                    command.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+            return RedirectToAction("Index");
+        }
         // GET: CatalogController/Details/5
         public ActionResult Details(int id)
         {

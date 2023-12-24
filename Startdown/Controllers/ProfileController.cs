@@ -1,14 +1,49 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Startdown.DB;
+using Startdown.Models;
+using System.Data.SqlClient;
 
 namespace Startdown.Controllers
 {
     public class ProfileController : Controller
     {
+        CurrentUser User = new CurrentUser();
+        void PrintLogin()
+        {
+            if (HttpContext.Session.GetString("id") == null)
+            {
+                TempData["Message"] = $"Авторизуйтесь или зарегистрируйтесь";
+                RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                //считали id пользователя
+                int id = 0;
+                id = int.Parse(HttpContext.Session.GetString("id"));
+                //подключаемся и вытягиваем логин
+                string connstr = "Data Source=DESKTOP-UIR8C5V;Initial Catalog=StartDown_DB;Integrated Security=True";
+                using (SqlConnection conn = new SqlConnection(connstr))
+                {
+                    conn.Open();
+                    string query = "select [dbo].[User].[Login] from [dbo].[User]" +
+                        $"where [dbo].[User].[id] = {id}";
+                    SqlCommand command = new SqlCommand(query, conn);
+
+                    var reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        User = new CurrentUser(id, reader.GetString(0));
+                    }
+                    conn.Close();
+                }
+            }
+        }
         // GET: ProfileController
         public ActionResult Index()
         {
-            return View();
+            PrintLogin();
+            return View(User);
         }
 
         // GET: ProfileController/Details/5

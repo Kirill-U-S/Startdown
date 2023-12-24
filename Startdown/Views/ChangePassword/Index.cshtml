@@ -3,7 +3,7 @@
 
 }
 <body>
-    <form method="post">
+    <form asp-controller="ChangePassword" asp-action="B_ChangePass" method="post">
         <main>
             <div style="position:absolute; top:10%;left:45%">
                 <legend><b>Смена пароля</b></legend>
@@ -11,16 +11,16 @@
                     <label for="Password">Старый пароль:</label>
                 </p>
                 <p>
-                    <input type="text" name="Password" value="" />
+                    <input type="text" name="Passwordold" value="" />
                 </p>
                 <p>
                     <label for="Password">Новый пароль:</label>
                 </p>
                 <p>
-                    <input type="text" name="Password" value="" />
+                    <input type="text" name="Passwordnew" value="" />
                 </p>
-
-                <button class="button" onclick="location.href='https://localhost:7281/MainPage'" type="button">Сохранить</button>
+                <button class="button" type="submit">Сохранить </button>
+                <!--<button class="button" onclick="location.href='https://localhost:7281/MainPage'" type="button">Сохранить</button> -->
             </div>
 
         </main>

@@ -4,7 +4,10 @@
 
 <div style="position:absolute; top:10%;left:45%">
     <p>
-        <b style="font-size:15px">Тут должен быть логин</b>
+        @{
+            <b style="font-size:15px">@Model.Login</b>
+
+        }
     </p>
     <p>
         <button class="button" onclick="location.href='https://localhost:7281/Basket'" type="button">Корзина</button>
